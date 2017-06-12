@@ -19,7 +19,7 @@ public class ResolucaoTela extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txbValorClasse = new javax.swing.JTextField();
         txbValorAmplitude = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCalcular = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rsIntervalos = new javax.swing.JTextPane();
@@ -39,16 +39,14 @@ public class ResolucaoTela extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         rsFrAcumulada = new javax.swing.JTextPane();
         jLabel10 = new javax.swing.JLabel();
-        txbDesvioMedio = new javax.swing.JTextField();
-        jButtonMatriz = new javax.swing.JRadioButton();
-        jButtonIntervalo = new javax.swing.JRadioButton();
+        txbDesvioPadrao = new javax.swing.JTextField();
+        rblMatrizDados = new javax.swing.JRadioButton();
+        rblIntervalo = new javax.swing.JRadioButton();
         jLabel11 = new javax.swing.JLabel();
-        txbMatrizDados = new javax.swing.JTextField();
-        txbFrequenciaPronta = new javax.swing.JTextField();
+        txtMatrizDados = new javax.swing.JTextField();
+        txtFrequenciaPronta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Resolução de problemas"));
 
         jLabel1.setText("Informe a matriz de dados ou o intervalo (números separados por espaço).");
 
@@ -58,10 +56,10 @@ public class ResolucaoTela extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Amplitude:");
 
-        jButton1.setText("Gerar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCalcularActionPerformed(evt);
             }
         });
 
@@ -73,7 +71,7 @@ public class ResolucaoTela extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(rsFrequencia);
 
-        jLabel6.setText("Ponto Médio");
+        jLabel6.setText("Ponto médio");
 
         jScrollPane3.setViewportView(rsPontoMedio);
 
@@ -90,24 +88,24 @@ public class ResolucaoTela extends javax.swing.JFrame {
         jScrollPane6.setViewportView(rsFrAcumulada);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel10.setText("Desvio Médio:");
+        jLabel10.setText("Desvio padrão:");
 
-        buttonGroup1.add(jButtonMatriz);
-        jButtonMatriz.setText("Matriz de dados");
-        jButtonMatriz.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rblMatrizDados);
+        rblMatrizDados.setText("Matriz de dados");
+        rblMatrizDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMatrizActionPerformed(evt);
+                rblMatrizDadosActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jButtonIntervalo);
-        jButtonIntervalo.setText("Intervalo");
+        buttonGroup1.add(rblIntervalo);
+        rblIntervalo.setText("Intervalo");
 
         jLabel11.setText("Frequência pronta");
 
-        txbFrequenciaPronta.addActionListener(new java.awt.event.ActionListener() {
+        txtFrequenciaPronta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txbFrequenciaProntaActionPerformed(evt);
+                txtFrequenciaProntaActionPerformed(evt);
             }
         });
 
@@ -116,67 +114,66 @@ public class ResolucaoTela extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(rblMatrizDados)
+                                .addGap(18, 18, 18)
+                                .addComponent(rblIntervalo))
+                            .addComponent(txtMatrizDados, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(jLabel11)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtFrequenciaPronta, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCalcular))))
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txbValorClasse)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txbValorClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txbValorAmplitude)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txbValorAmplitude, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(txbDesvioMedio))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txbDesvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txbMatrizDados)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButtonMatriz)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonIntervalo)
-                                        .addGap(69, 69, 69)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(txbFrequenciaPronta))
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, 0))))
+                                .addGap(330, 330, 330)
+                                .addComponent(jLabel9)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,14 +182,15 @@ public class ResolucaoTela extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonMatriz)
-                    .addComponent(jButtonIntervalo)
+                    .addComponent(rblMatrizDados)
+                    .addComponent(rblIntervalo)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txbMatrizDados)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txbFrequenciaPronta))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFrequenciaPronta, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtMatrizDados, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCalcular)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -200,7 +198,7 @@ public class ResolucaoTela extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txbValorAmplitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(txbDesvioMedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txbDesvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -211,30 +209,25 @@ public class ResolucaoTela extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane6)
-                    .addComponent(jScrollPane4))
-                .addGap(0, 0, 0))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPane3)
+                        .addComponent(jScrollPane6)
+                        .addComponent(jScrollPane4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("");
@@ -242,188 +235,111 @@ public class ResolucaoTela extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        ResolucaoEstatistica resEs = new ResolucaoEstatistica();
-        int intervalos[][] = null;
-        ArrayList<Integer> numeros;
-
-        ArrayList<Integer> Frequencia = null;
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        ResolucaoEstatistica resolucaoEstatistica = new ResolucaoEstatistica();
+        int[][] intervalos = null;
+        ArrayList<Integer> frequencia = null;
+        ArrayList<Integer> numeros = txtMatrizDados.getText().isEmpty()
+                ? new ArrayList<>()
+                : resolucaoEstatistica.retornaValoresSeparados(txtMatrizDados.getText());
 
         boolean prosseguir = false;
 
-        if (jButtonMatriz.isSelected()) {
+        if (rblMatrizDados.isSelected()) {
+            if (!txtMatrizDados.getText().isEmpty()) {
+                int valorClasse = resolucaoEstatistica.calcularValorClasse(numeros);
+                txbValorClasse.setText(String.valueOf(valorClasse));
 
-            if (!txbMatrizDados.getText().isEmpty()) {
-
-                numeros = resEs.RetornaValoresSeparados(txbMatrizDados.getText());
-
-                int Vlrclasse = resEs.CalculaClasse(numeros);
-
-                txbValorClasse.setText(String.valueOf(Vlrclasse));
-
-                int Vlramplitude = resEs.CalculaAmplitude(numeros, Vlrclasse);
-
-                txbValorAmplitude.setText(String.valueOf(Vlramplitude));
-
-                intervalos = resEs.Retornaintervalos(true);
-
-                Frequencia = resEs.CalculaFrequencia(numeros, true, "");
-
+                int valorAmplitude = resolucaoEstatistica.calcularAmplitude(numeros, valorClasse);
+                txbValorAmplitude.setText(String.valueOf(valorAmplitude));
+                
+                intervalos = resolucaoEstatistica.retornarIntervalos(true);
+                frequencia = resolucaoEstatistica.calcularFrequencia(numeros, true, "");
                 prosseguir = true;
-
             } else {
-
-                JOptionPane.showMessageDialog(rootPane, "É obrigatório preencher a Matriz de Dados neste tipo de cálculo");
-
+                JOptionPane.showMessageDialog(rootPane, "É obrigatório preencher a Matriz de Dados neste tipo de cálculo.");
             }
-
         } else {
-
-            if (!txbMatrizDados.getText().isEmpty() && !txbFrequenciaPronta.getText().isEmpty()) {
-
-                numeros = resEs.RetornaValoresSeparados(txbMatrizDados.getText());
-
-                intervalos = resEs.Retornaintervalos(false);
-
-                Frequencia = resEs.CalculaFrequencia(numeros, false, txbFrequenciaPronta.getText());
-
-                double desvioMedio = resEs.CalcularDesvioMedio();
-
-                String rsDesvioMedio = String.format("%.2f", desvioMedio);
-
-                txbDesvioMedio.setText(rsDesvioMedio);
-
+            if (!txtMatrizDados.getText().isEmpty() && !txtFrequenciaPronta.getText().isEmpty()) {
+                intervalos = resolucaoEstatistica.retornarIntervalos(false);
+                frequencia = resolucaoEstatistica.calcularFrequencia(numeros, false, txtFrequenciaPronta.getText());
+                
+                double desvioMedio = resolucaoEstatistica.CalcularDesvioMedio();
+                String desvioMedioFormatado = String.format("%.2f", desvioMedio);
+                txbDesvioPadrao.setText(desvioMedioFormatado);
+                
                 prosseguir = true;
-
             } else {
-
-                JOptionPane.showMessageDialog(rootPane, "É obrigatório informar a Matriz de Dados e a Frequência pronta para este tipo de cálculo!");
-
+                JOptionPane.showMessageDialog(rootPane, "É obrigatório informar a Matriz de Dados e a Frequência pronta para este tipo de cálculo.");
             }
-
         }
 
         if (prosseguir) {
-
             String listaIntervalos = "";
             String linha = "";
             String separador = "";
             for (int i = 0; i < intervalos.length; i++) {
                 for (int j = 0; j < intervalos[0].length; j++) {
-
                     if (j == 1) {
-
                         separador = " - ";
                     } else {
-
                         separador = "";
-
                     }
-
                     linha += separador + String.valueOf(intervalos[i][j]);
-
                 }
-
                 listaIntervalos += linha + System.lineSeparator();
                 linha = "";
             }
-
             rsIntervalos.setText(listaIntervalos);
-
             String listaFrequencia = "";
-
-            for (int i = 0; i < Frequencia.size(); i++) {
-
-                listaFrequencia += Frequencia.get(i) + System.lineSeparator();
-
+            for (int i = 0; i < frequencia.size(); i++) {
+                listaFrequencia += frequencia.get(i) + System.lineSeparator();
             }
-
             rsFrequencia.setText(listaFrequencia);
-
-            ArrayList<Double> PontoMedio = resEs.CalcularPontoMedio();
-
+            ArrayList<Double> PontoMedio = resolucaoEstatistica.CalcularPontoMedio();
             String listaPontoMedio = "";
-
-            for (int i = 0;
-                    i < PontoMedio.size();
-                    i++) {
-
+            for (int i = 0; i < PontoMedio.size(); i++) {
                 listaPontoMedio += PontoMedio.get(i) + System.lineSeparator();
-
             }
-
             rsPontoMedio.setText(listaPontoMedio);
-
-            ArrayList<Double> FrequenciaRelativa = resEs.CalcularFrequenciaRelativa();
-
+            ArrayList<Double> FrequenciaRelativa = resolucaoEstatistica.CalcularFrequenciaRelativa();
             String listaFrRelativa = "";
-
-            for (int i = 0;
-                    i < FrequenciaRelativa.size();
-                    i++) {
-
+            for (int i = 0; i < FrequenciaRelativa.size(); i++) {
                 listaFrRelativa += String.format("%.2f", FrequenciaRelativa.get(i)) + System.lineSeparator();
-
             }
-
             rsFrRelativa.setText(listaFrRelativa);
-
-            ArrayList<Integer> FrequenciaAcumulada = resEs.CalcularFrequenciaAcumulada();
-
+            ArrayList<Integer> FrequenciaAcumulada = resolucaoEstatistica.CalcularFrequenciaAcumulada();
             String listaFrAcumulada = "";
-
-            for (int i = 0;
-                    i < FrequenciaAcumulada.size();
-                    i++) {
-
+            for (int i = 0; i < FrequenciaAcumulada.size(); i++) {
                 listaFrAcumulada += FrequenciaAcumulada.get(i) + System.lineSeparator();
-
             }
-
             rsFrAcumulada.setText(listaFrAcumulada);
-
-            ArrayList<Double> FrequenciaRelativaAcumulada = resEs.CalcularFrequenciaRelativaAcumulada();
-
+            ArrayList<Double> FrequenciaRelativaAcumulada = resolucaoEstatistica.CalcularFrequenciaRelativaAcumulada();
             String listaFrRelativaAcumulada = "";
-
-            for (int i = 0;
-                    i < FrequenciaRelativaAcumulada.size();
-                    i++) {
-
+            for (int i = 0; i < FrequenciaRelativaAcumulada.size(); i++) {
                 listaFrRelativaAcumulada += String.format("%.2f", FrequenciaRelativaAcumulada.get(i)) + System.lineSeparator();
-
             }
-
             rsFrRelAcumulada.setText(listaFrRelativaAcumulada);
-        } else {
-
-            JOptionPane.showMessageDialog(rootPane, "Houve algum erro e não foi possível prosseguir!");
-
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCalcularActionPerformed
 
-    private void jButtonMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMatrizActionPerformed
+    private void rblMatrizDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rblMatrizDadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonMatrizActionPerformed
+    }//GEN-LAST:event_rblMatrizDadosActionPerformed
 
-    private void txbFrequenciaProntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txbFrequenciaProntaActionPerformed
+    private void txtFrequenciaProntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFrequenciaProntaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txbFrequenciaProntaActionPerformed
+    }//GEN-LAST:event_txtFrequenciaProntaActionPerformed
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResolucaoTela().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ResolucaoTela().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalcular;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JRadioButton jButtonIntervalo;
-    private javax.swing.JRadioButton jButtonMatriz;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -442,16 +358,18 @@ public class ResolucaoTela extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JRadioButton rblIntervalo;
+    private javax.swing.JRadioButton rblMatrizDados;
     private javax.swing.JTextPane rsFrAcumulada;
     private javax.swing.JTextPane rsFrRelAcumulada;
     private javax.swing.JTextPane rsFrRelativa;
     private javax.swing.JTextPane rsFrequencia;
     private javax.swing.JTextPane rsIntervalos;
     private javax.swing.JTextPane rsPontoMedio;
-    private javax.swing.JTextField txbDesvioMedio;
-    private javax.swing.JTextField txbFrequenciaPronta;
-    private javax.swing.JTextField txbMatrizDados;
+    private javax.swing.JTextField txbDesvioPadrao;
     private javax.swing.JTextField txbValorAmplitude;
     private javax.swing.JTextField txbValorClasse;
+    private javax.swing.JTextField txtFrequenciaPronta;
+    private javax.swing.JTextField txtMatrizDados;
     // End of variables declaration//GEN-END:variables
 }
