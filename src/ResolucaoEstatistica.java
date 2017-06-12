@@ -6,8 +6,8 @@ public class ResolucaoEstatistica {
 
     int numeroMaximo = 0;
     int numeroMinimo = 0;
-    int Vlrclasse = 0;
-    int VlrAmplitude = 0;
+    int valorClasse = 0;
+    int valorAmplitude = 0;
     double ValorTotalFrequencia = 0;
     int matrizIntervalo[][];
     ArrayList<Integer> Frequencia;
@@ -18,58 +18,41 @@ public class ResolucaoEstatistica {
     ArrayList<Double> MediaIntervalos;
     ArrayList<Integer> numeros;
 
-    public ArrayList<Integer> RetornaValoresSeparados(String matrizNumeros) {
-
+    public ArrayList<Integer> retornaValoresSeparados(String matrizNumeros) {
         String[] separadorNumeros = matrizNumeros.split(" ");
-
         numeros = new ArrayList<>();
-
-        for (int i = 0; i < separadorNumeros.length; i++) {
-
-            numeros.add(Integer.parseInt(separadorNumeros[i]));
-
+        for (String n : separadorNumeros) {
+            numeros.add(Integer.parseInt(n));
         }
-
         return numeros;
     }
 
-    public int CalculaClasse(ArrayList<Integer> numeros) {
-
+    public int calcularValorClasse(ArrayList<Integer> numeros) {
         double classe = (3.3 * (Math.log10(numeros.size()))) + 1;
-
         int classeArredondada = (int) Math.ceil(classe);
-
-        Vlrclasse = classeArredondada;
-
+        valorClasse = classeArredondada;
         return classeArredondada;
-
     }
 
-    public int CalculaAmplitude(ArrayList<Integer> numeros, int classe) {
-
+    public int calcularAmplitude(ArrayList<Integer> numeros, int classe) {
         numeroMaximo = Collections.max(numeros);
         numeroMinimo = Collections.min(numeros);
-
         int amplitude = (int) ((numeroMaximo - numeroMinimo) / classe);
-
-        //Só pra pegar o acima sempre
+        // Só pra pegar o acima sempre.
         amplitude += 1;
-
-        VlrAmplitude = amplitude;
-
+        valorAmplitude = amplitude;
         return amplitude;
-
     }
 
-    public int[][] Retornaintervalos(boolean verifica) {
+    public int[][] retornarIntervalos(boolean verifica) {
 
         if (verifica) {
 
-            matrizIntervalo = new int[Vlrclasse][2];
+            matrizIntervalo = new int[valorClasse][2];
             int auxiliar = 0;
             int indice = 0;
 
-            for (int i = 0; i < Vlrclasse; i++) {
+            for (int i = 0; i < valorClasse; i++) {
 
                 indice = 0;
 
@@ -79,7 +62,7 @@ public class ResolucaoEstatistica {
 
                     if (indice == 2) {
 
-                        numeroMinimo += VlrAmplitude - 1;
+                        numeroMinimo += valorAmplitude - 1;
 
                     } else {
                         if (indice == 1) {
@@ -123,7 +106,7 @@ public class ResolucaoEstatistica {
 
     }
 
-    public ArrayList<Integer> CalculaFrequencia(ArrayList<Integer> numeros, boolean opcao, String frequenciaPronta) {
+    public ArrayList<Integer> calcularFrequencia(ArrayList<Integer> numeros, boolean opcao, String frequenciaPronta) {
 
         if (opcao) {
 
@@ -149,7 +132,7 @@ public class ResolucaoEstatistica {
             }
         } else {
 
-            Frequencia = RetornaValoresSeparados(frequenciaPronta);
+            Frequencia = retornaValoresSeparados(frequenciaPronta);
 
             for (int i = 0; i < Frequencia.size(); i++) {
 
@@ -168,7 +151,7 @@ public class ResolucaoEstatistica {
 
         double pontoMedio;
 
-        for (int i = 0; i < Vlrclasse; i++) {
+        for (int i = 0; i < valorClasse; i++) {
 
             pontoMedio = (matrizIntervalo[i][0] + matrizIntervalo[i][1]) / 2.0;
 
