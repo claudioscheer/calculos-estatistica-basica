@@ -151,7 +151,7 @@ public class ResolucaoEstatistica {
 
         double pontoMedio;
 
-        for (int i = 0; i < valorClasse; i++) {
+        for (int i = 0; i < matrizIntervalo.length; i++) {
 
             pontoMedio = (matrizIntervalo[i][0] + matrizIntervalo[i][1]) / 2.0;
 
@@ -212,13 +212,29 @@ public class ResolucaoEstatistica {
         return FrRelativaAcumulada;
     }
 
-    public double CalcularDesvioMedio() {
+    public double calcularDesvioPadrao() {
+        double media = 0;
+        for (int i = 0; i < matrizIntervalo.length; i++) {
+            media += Double.valueOf(PontoMedio.get(i).toString()) * Frequencia.get(i);
+        }
+        media /= numeros.size();
+
+        double variancia = 0;
+        for (int i = 0; i < matrizIntervalo.length; i++) {
+            variancia += Math.pow(Double.valueOf(PontoMedio.get(i).toString()) - media, 2);
+        }
+        variancia /= numeros.size() - 1;
+
+        return Math.sqrt(variancia);
+    }
+
+    public double calcularDesvioMedio() {
 
         MediaIntervalos = new ArrayList<>();
         double somaIntervalo = 0;
 
         for (int i = 0; i < matrizIntervalo.length; i++) {
-            for (int j = 0; j < matrizIntervalo[j].length; j++) {
+            for (int j = 0; j < matrizIntervalo[i].length; j++) {
 
                 somaIntervalo += matrizIntervalo[i][j];
 
@@ -228,7 +244,7 @@ public class ResolucaoEstatistica {
             somaIntervalo = 0;
 
         }
-        return DesvioMedio();
+        return desvioMedio();
     }
 
     public double CalculaMediaTotal() {
@@ -246,7 +262,21 @@ public class ResolucaoEstatistica {
 
     }
 
-    public double DesvioMedio() {
+    public double desvioPadrao() {
+
+        double TotalAbsoluto = 0;
+        double MediaIntervalo = CalculaMediaTotal();
+
+        for (int i = 0; i < MediaIntervalos.size(); i++) {
+
+            TotalAbsoluto += Math.abs((MediaIntervalos.get(i) - MediaIntervalo) * Frequencia.get(i));
+
+        }
+
+        return TotalAbsoluto / ValorTotalFrequencia;
+    }
+
+    public double desvioMedio() {
 
         double TotalAbsoluto = 0;
         double MediaIntervalo = CalculaMediaTotal();
