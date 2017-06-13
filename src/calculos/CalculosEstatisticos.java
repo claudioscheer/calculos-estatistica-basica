@@ -43,7 +43,7 @@ public class CalculosEstatisticos {
 
     public static void main(String[] args) {
         List<Double> a = new ArrayList<>();
-        a.add(1d);
+        a.add(1d); 
         a.add(2d);
         a.add(3d);
         a.add(4d);
