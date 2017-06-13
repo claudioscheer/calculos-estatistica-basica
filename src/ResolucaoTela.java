@@ -192,13 +192,14 @@ public class ResolucaoTela extends javax.swing.JFrame {
                         .addComponent(txtMatrizDados, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnCalcular)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txbValorClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txbValorAmplitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(txbDesvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txbDesvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txbValorClasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(txbValorAmplitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -252,9 +253,13 @@ public class ResolucaoTela extends javax.swing.JFrame {
 
                 int valorAmplitude = resolucaoEstatistica.calcularAmplitude(numeros, valorClasse);
                 txbValorAmplitude.setText(String.valueOf(valorAmplitude));
-                
+
                 intervalos = resolucaoEstatistica.retornarIntervalos(true);
                 frequencia = resolucaoEstatistica.calcularFrequencia(numeros, true, "");
+
+//                double desvioPadrao = resolucaoEstatistica.calcularDesvioPadrao();
+//                String desvioPadraoFormatado = String.format("%.2f", desvioPadrao);
+//                txbDesvioPadrao.setText(desvioPadraoFormatado);
                 prosseguir = true;
             } else {
                 JOptionPane.showMessageDialog(rootPane, "É obrigatório preencher a Matriz de Dados neste tipo de cálculo.");
@@ -263,11 +268,14 @@ public class ResolucaoTela extends javax.swing.JFrame {
             if (!txtMatrizDados.getText().isEmpty() && !txtFrequenciaPronta.getText().isEmpty()) {
                 intervalos = resolucaoEstatistica.retornarIntervalos(false);
                 frequencia = resolucaoEstatistica.calcularFrequencia(numeros, false, txtFrequenciaPronta.getText());
-                
-                double desvioMedio = resolucaoEstatistica.CalcularDesvioMedio();
-                String desvioMedioFormatado = String.format("%.2f", desvioMedio);
-                txbDesvioPadrao.setText(desvioMedioFormatado);
-                
+                resolucaoEstatistica.matrizIntervalo = intervalos;
+
+                int valorClasse = resolucaoEstatistica.calcularValorClasse(numeros);
+                txbValorClasse.setText(String.valueOf(intervalos.length));
+
+                int valorAmplitude = resolucaoEstatistica.calcularAmplitude(numeros, valorClasse);
+                txbValorAmplitude.setText(String.valueOf(valorAmplitude));
+
                 prosseguir = true;
             } else {
                 JOptionPane.showMessageDialog(rootPane, "É obrigatório informar a Matriz de Dados e a Frequência pronta para este tipo de cálculo.");
@@ -320,6 +328,11 @@ public class ResolucaoTela extends javax.swing.JFrame {
                 listaFrRelativaAcumulada += String.format("%.2f", FrequenciaRelativaAcumulada.get(i)) + System.lineSeparator();
             }
             rsFrRelAcumulada.setText(listaFrRelativaAcumulada);
+
+            double desvioPadrao = resolucaoEstatistica.calcularDesvioPadrao();
+            String desvioPadraoFormatado = String.format("%.2f", desvioPadrao);
+            txbDesvioPadrao.setText(desvioPadraoFormatado);
+
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
