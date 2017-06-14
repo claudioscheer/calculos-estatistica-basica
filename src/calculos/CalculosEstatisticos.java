@@ -44,7 +44,7 @@ public class CalculosEstatisticos {
         quantidadeClasses = (int) (1 + (3.3 * Math.log10(this.quantidadeElementos)));
         double menorValor = Collections.min(numeros);
         double maiorValor = Collections.max(numeros);
-        amplitudeDaClasse = (int) Math.round((maiorValor - menorValor) / quantidadeClasses);
+        amplitudeDaClasse = (int) Math.ceil((maiorValor - menorValor) / quantidadeClasses);
 
         classes = new double[quantidadeClasses][2];
         double valorMinimo = menorValor;
@@ -62,7 +62,11 @@ public class CalculosEstatisticos {
         for (int i = 0; i < quantidadeClasses; i++) {
             int frequencia = 0;
             for (Double numero : numeros) {
-                if (numero >= classes[i][0] && numero < classes[i][1]) {
+                if (i == quantidadeClasses - 1) {
+                    if (numero >= classes[i][0] && numero <= classes[i][1]) {
+                        frequencia++;
+                    }
+                } else if (numero >= classes[i][0] && numero < classes[i][1]) {
                     frequencia++;
                 }
             }
@@ -144,6 +148,7 @@ public class CalculosEstatisticos {
         a.add(2d);
         a.add(3d);
         a.add(4d);
+        a.add(5d);
 
         CalculosEstatisticos calculosEstatisticos = new CalculosEstatisticos(a);
     }
