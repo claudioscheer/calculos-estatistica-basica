@@ -221,7 +221,9 @@ public class ResolucaoEstatistica {
 
         double variancia = 0;
         for (int i = 0; i < matrizIntervalo.length; i++) {
-            variancia += Math.pow(Double.valueOf(PontoMedio.get(i).toString()) - media, 2);
+            if (Frequencia.get(i) != 0) {
+                variancia += Math.pow(Double.valueOf(PontoMedio.get(i).toString()) - media, 2) * Frequencia.get(i);
+            }
         }
         variancia /= numeros.size() - 1;
 
