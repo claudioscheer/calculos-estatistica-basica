@@ -20,7 +20,7 @@ public class TelaCalculos extends javax.swing.JFrame {
         radioMatrizDeDados = new javax.swing.JRadioButton();
         radioIntervaloPronto = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtInformarClasses = new javax.swing.JTextArea();
+        txtInformarIntervalos = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtInformarFrequencias = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -62,26 +62,39 @@ public class TelaCalculos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtInformarMatrizDados);
 
         buttonGroupOpcoes.add(radioMatrizDeDados);
+        radioMatrizDeDados.setSelected(true);
         radioMatrizDeDados.setText("Matriz de dados");
+        radioMatrizDeDados.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioMatrizDeDadosItemStateChanged(evt);
+            }
+        });
 
         buttonGroupOpcoes.add(radioIntervaloPronto);
         radioIntervaloPronto.setText("Intervalo pronto");
+        radioIntervaloPronto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                radioIntervaloProntoItemStateChanged(evt);
+            }
+        });
 
-        txtInformarClasses.setColumns(20);
-        txtInformarClasses.setLineWrap(true);
-        txtInformarClasses.setRows(3);
-        jScrollPane2.setViewportView(txtInformarClasses);
+        txtInformarIntervalos.setEditable(false);
+        txtInformarIntervalos.setColumns(20);
+        txtInformarIntervalos.setLineWrap(true);
+        txtInformarIntervalos.setRows(3);
+        jScrollPane2.setViewportView(txtInformarIntervalos);
 
+        txtInformarFrequencias.setEditable(false);
         txtInformarFrequencias.setColumns(20);
         txtInformarFrequencias.setLineWrap(true);
         txtInformarFrequencias.setRows(3);
         jScrollPane3.setViewportView(txtInformarFrequencias);
 
-        jLabel1.setText("Matriz de dados");
+        jLabel1.setText("Matriz de dados (Ex.: 1 5 8 6 2.4)");
 
-        jLabel2.setText("Classes");
+        jLabel2.setText("Intervalos (Ex.: 1-1.5 1.5-2 2-2.5)");
 
-        jLabel3.setText("Frequências");
+        jLabel3.setText("Frequências (Ex.: 3 5 9)");
 
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -128,22 +141,22 @@ public class TelaCalculos extends javax.swing.JFrame {
 
         jLabel10.setText("Qntd. classes:");
 
-        lblQuantidadeClasses.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblQuantidadeClasses.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblQuantidadeClasses.setText("0");
 
         jLabel11.setText("Amplitude:");
 
-        lblAmplitudeDaClasse.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblAmplitudeDaClasse.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblAmplitudeDaClasse.setText("0");
 
         jLabel12.setText("Média:");
 
-        lblMedia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblMedia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMedia.setText("0");
 
         jLabel13.setText("Desvio padrão:");
 
-        lblDesvioPadrao.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblDesvioPadrao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblDesvioPadrao.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,7 +274,7 @@ public class TelaCalculos extends javax.swing.JFrame {
                                 .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane5)
                             .addComponent(jScrollPane4)
@@ -280,23 +293,93 @@ public class TelaCalculos extends javax.swing.JFrame {
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         if (radioMatrizDeDados.isSelected()) {
-            if (txtInformarMatrizDados.getText().isEmpty()) {
+            if (txtInformarMatrizDados.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Informe a matriz de dados.");
                 return;
             }
-
-            CalculosEstatisticos calculosEstatisticos = new CalculosEstatisticos(getMatrizDeDados());
-            mostrarDadosEstatisticosEmTela(calculosEstatisticos);
+            try {
+                CalculosEstatisticos calculosEstatisticos = new CalculosEstatisticos(getMatrizDeDados());
+                mostrarDadosEstatisticosEmTela(calculosEstatisticos);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         } else if (radioIntervaloPronto.isSelected()) {
+            if (txtInformarIntervalos.getText().trim().isEmpty() || txtInformarFrequencias.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Informe os intervalos e a frequência de cada intervalo.");
+                return;
+            }
 
+            try {
+                CalculosEstatisticos calculosEstatisticos = calcularIntervalosProntos();
+                mostrarDadosEstatisticosEmTela(calculosEstatisticos);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma das opções.");
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
+    private void radioMatrizDeDadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioMatrizDeDadosItemStateChanged
+        boolean showMatrizDados = radioMatrizDeDados.isSelected();
+        txtInformarMatrizDados.setEditable(showMatrizDados);
+        txtInformarIntervalos.setEditable(!showMatrizDados);
+        txtInformarFrequencias.setEditable(!showMatrizDados);
+    }//GEN-LAST:event_radioMatrizDeDadosItemStateChanged
+
+    private void radioIntervaloProntoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioIntervaloProntoItemStateChanged
+        boolean showIntervalos = radioIntervaloPronto.isSelected();
+        txtInformarMatrizDados.setEditable(!showIntervalos);
+        txtInformarIntervalos.setEditable(showIntervalos);
+        txtInformarFrequencias.setEditable(showIntervalos);
+    }//GEN-LAST:event_radioIntervaloProntoItemStateChanged
+
+    private CalculosEstatisticos calcularIntervalosProntos() throws Exception {
+        return new CalculosEstatisticos(getIntervalos(), getFrequencias());
+    }
+
+    private double[][] getIntervalos() throws Exception {
+        String[] intervalosInformados = txtInformarIntervalos.getText().split(" ");
+        double[][] intervalos = new double[intervalosInformados.length][2];
+        for (int i = 0; i < intervalosInformados.length; i++) {
+            String[] valoresIntervalo = intervalosInformados[i].split("-");
+            if (valoresIntervalo.length != 2) {
+                throw new Exception(String.format("O intervalo %s não está correto.", intervalosInformados[i]));
+            }
+            double[] valores = new double[valoresIntervalo.length];
+            valores[0] = Double.parseDouble(valoresIntervalo[0].replace(",", ".").trim());
+            valores[1] = Double.parseDouble(valoresIntervalo[1].replace(",", ".").trim());
+            intervalos[i] = valores;
+        }
+
+        return intervalos;
+    }
+
+    private int[] getFrequencias() {
+        String[] frequenciasInformadas = txtInformarFrequencias.getText().split(" ");
+        int[] frequencias = new int[frequenciasInformadas.length];
+        for (int i = 0; i < frequenciasInformadas.length; i++) {
+            frequencias[i] = Integer.parseInt(frequenciasInformadas[i].trim());
+        }
+
+        return frequencias;
+    }
+
+    private List<Double> getMatrizDeDados() {
+        List<Double> dados = new ArrayList<>();
+        for (String numero : txtInformarMatrizDados.getText().split(" ")) {
+            if (numero.isEmpty()) {
+                continue;
+            }
+            dados.add(Double.parseDouble(numero.replace(",", ".").trim()));
+        }
+
+        return dados;
+    }
+
     private void mostrarDadosEstatisticosEmTela(CalculosEstatisticos calculosEstatisticos) {
         StringBuilder sb = new StringBuilder();
-        for (double[] classe : calculosEstatisticos.classes) {
+        for (double[] classe : calculosEstatisticos.intervalos) {
             sb.append(String.format("%.2f", classe[0])).append(" - ").append(String.format("%.2f", classe[1])).append("\n");
         }
         txtIntervalos.setText(sb.toString());
@@ -331,18 +414,10 @@ public class TelaCalculos extends javax.swing.JFrame {
         }
         txtFrequenciaRelativaAcumulada.setText(sb.toString());
 
-        lblQuantidadeClasses.setText(String.valueOf(calculosEstatisticos.quantidadeClasses));
+        lblQuantidadeClasses.setText(String.valueOf(calculosEstatisticos.quantidadeDeClasses));
         lblAmplitudeDaClasse.setText(String.valueOf(calculosEstatisticos.amplitudeDaClasse));
         lblMedia.setText(String.format("%.2f", calculosEstatisticos.media));
         lblDesvioPadrao.setText(String.format("%.2f", calculosEstatisticos.desvioPadrao));
-    }
-
-    private List<Double> getMatrizDeDados() {
-        List<Double> dados = new ArrayList<>();
-        for (String numero : txtInformarMatrizDados.getText().split(" ")) {
-            dados.add(Double.valueOf(numero));
-        }
-        return dados;
     }
 
     public static void main(String args[]) {
@@ -386,8 +461,8 @@ public class TelaCalculos extends javax.swing.JFrame {
     private javax.swing.JTextArea txtFrequenciaRelativaAcumulada;
     private javax.swing.JTextArea txtFrequencias;
     private javax.swing.JTextArea txtFrequenciasRelativa;
-    private javax.swing.JTextArea txtInformarClasses;
     private javax.swing.JTextArea txtInformarFrequencias;
+    private javax.swing.JTextArea txtInformarIntervalos;
     private javax.swing.JTextArea txtInformarMatrizDados;
     private javax.swing.JTextArea txtIntervalos;
     private javax.swing.JTextArea txtPontosMedio;
